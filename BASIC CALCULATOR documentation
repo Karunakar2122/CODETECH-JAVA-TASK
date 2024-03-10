@@ -1,0 +1,51 @@
+# Basic Calculator Documentation
+
+## Overview
+This Java program implements a simple console-based calculator that allows users to perform basic mathematical operations such as addition, subtraction, multiplication, and division. It prompts the user to input two numbers and select the operation they want to perform.
+
+## Functions
+
+### main
+- **Description**: The main function of the program.
+- **Behavior**: 
+  - Prompts the user to enter two numbers and choose an operation.
+  - Performs the selected operation on the numbers.
+  - Displays the result of the operation.
+
+### Input Numbers
+- **Description**: Prompts the user to input two numbers.
+- **Behavior**: 
+  - Waits for the user to input the first number.
+  - Waits for the user to input the second number.
+
+### Choose Operation
+- **Description**: Prompts the user to choose an operation.
+- **Behavior**: 
+  - Displays a menu of available operations (addition, subtraction, multiplication, division).
+  - Waits for the user to input their choice.
+  - Validates the input and ensures it corresponds to a valid operation.
+
+### Perform Operation
+- **Description**: Performs the selected operation on the input numbers.
+- **Behavior**: 
+  - Receives the two input numbers and the user's chosen operation.
+  - Computes the result of the operation based on the chosen operation.
+  - Handles division by zero gracefully by displaying an error message and terminating the program if the second number is zero.
+
+## Usage
+1. Compile the Java program using a Java compiler.
+2. Run the compiled program.
+3. Follow the prompts to input two numbers and choose an operation.
+4. The program will display the result of the selected operation.
+
+## Example
+Enter the first number: 9
+Enter the second number: 8
+Choose an operation:
+
+Addition (+)
+Subtraction (-)
+Multiplication (*)
+Division (/)
+Enter your choice (1/2/3/4): 3
+Result: 72.0
