@@ -1,0 +1,111 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class TicTacToe {
+    // Function to print the current state of the board
+    public static void printBoard(char[][] board) {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                System.out.print(board[i][j]);
+                if (j < 2)
+                    System.out.print(" | ");
+            }
+            System.out.println();
+            if (i < 2)
+                System.out.println("---------");
+        }
+    }
+
+    // Function to check if a player has won
+    public static boolean checkWinner(char[][] board, char player) {
+        for (int i = 0; i < 3; i++) {
+            if (board[i][0] == player && board[i][1] == player && board[i][2] == player) // Check rows
+                return true;
+            if (board[0][i] == player && board[1][i] == player && board[2][i] == player) // Check columns
+                return true;
+        }
+        if (board[0][0] == player && board[1][1] == player && board[2][2] == player) // Check diagonal \
+            return true;
+        if (board[0][2] == player && board[1][1] == player && board[2][0] == player) // Check diagonal /
+            return true;
+        return false;
+    }
+
+    // Function to check if the game is a draw
+    public static boolean checkDraw(char[][] board) {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (board[i][j] == ' ')
+                    return false; // If any cell is empty, the game is not a draw
+            }
+        }
+        return true; // If all cells are filled and there's no winner, the game is a draw
+    }
+
+    // Function to get the player's move
+    public static void getPlayerMove(char[][] board, char player) {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.print("Enter your move (row column): ");
+            int row = scanner.nextInt();
+            int col = scanner.nextInt();
+            if (row >= 0 && row < 3 && col >= 0 && col < 3 && board[row][col] == ' ') {
+                board[row][col] = player;
+                break;
+            } else {
+                System.out.println("Invalid move. Please try again.");
+            }
+        }
+    }
+
+    // Function to get the computer's move (random)
+    public static void getComputerMove(char[][] board, char player) {
+        Random random = new Random();
+        while (true) {
+            int row = random.nextInt(3);
+            int col = random.nextInt(3);
+            if (board[row][col] == ' ') {
+                board[row][col] = player;
+                System.out.println("Computer chooses position: " + row + " " + col);
+                break;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        char[][] board = new char[3][3];
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                board[i][j] = ' '; // Initialize the board with empty cells
+            }
+        }
+
+        char[] players = {'X', 'O'};
+        int currentPlayerIndex = new Random().nextInt(2); // Randomly choose the starting player
+        char currentPlayer = players[currentPlayerIndex];
+
+        System.out.println("Welcome to Tic-Tac-Toe!");
+        printBoard(board);
+
+        while (true) {
+            if (currentPlayer == 'X') {
+                getPlayerMove(board, currentPlayer);
+            } else {
+                getComputerMove(board, currentPlayer);
+            }
+            printBoard(board);
+
+            if (checkWinner(board, currentPlayer)) {
+                System.out.println("Player " + currentPlayer + " wins!");
+                break;
+            }
+            if (checkDraw(board)) {
+                System.out.println("It's a draw!");
+                break;
+            }
+            // Switch to the other player
+            currentPlayerIndex = (currentPlayerIndex + 1) % 2;
+            currentPlayer = players[currentPlayerIndex];
+        }
+    }
+}
