@@ -1,0 +1,98 @@
+Title: Number Guessing Game in Java
+
+Description:
+
+The Number Guessing Game in Java is a console-based interactive application where the player attempts to guess a randomly generated number within a specified range. 
+
+Features:
+
+Random Number Generation: The game utilizes the Java Random class to generate a random number between 1 and 100.
+User Input Handling: It prompts the player to input their guesses via the console and handles input validation to ensure only integer values are accepted.
+Feedback Mechanism: After each guess, the game provides feedback to the player, indicating whether their guess was too high, too low, or correct.
+Limited Attempts: The player has a maximum of 10 attempts to guess the correct number.
+Game Outcome Notification: At the end of the game, the player is notified whether they successfully guessed the number within the allotted attempts or if they ran out of attempts.
+
+Implementation Overview:
+
+The program consists of a main class named NumberGuessingGame.
+The main method within this class serves as the entry point for the application and calls the guessNumber() method to start the game.
+The guessNumber() method initializes variables for the secret number, attempts counter, and maximum attempts allowed.
+It displays a welcome message and instructions for the player.
+Using a while loop, the method repeatedly prompts the player for guesses until either the correct number is guessed or the maximum attempts are reached.
+Within the loop, it validates user input to ensure it's an integer and provides appropriate feedback based on the player's guess.
+Upon exiting the loop, the method informs the player of the game outcome.
+
+Usage Instructions:
+
+Launch the Application: Run the NumberGuessingGame class to start the game.
+Enter Guesses: Follow the on-screen instructions to input your guesses via the console.
+Receive Feedback: After each guess, the game will provide feedback indicating whether the guess was too high, too low, or correct.
+Continue Guessing: Keep guessing until you either correctly guess the number or run out of attempts.
+Game Outcome: If you guess the number within 10 attempts, you win the game and receive congratulations. If you run out of attempts, the game informs you of the correct number.
+
+import java.util.Random;
+import java.util.Scanner;
+
+public class NumberGuessingGame {
+    /**
+     * Main method to start the number guessing game.
+     */
+    public static void main(String[] args) {
+        guessNumber();
+    }
+
+    /**
+     * Method to run the number guessing game.
+     */
+    public static void guessNumber() {
+        // Create an instance of Random class to generate random numbers
+        Random random = new Random();
+        // Generate a random number between 1 and 100 (inclusive)
+        int secretNumber = random.nextInt(100) + 1;
+        // Initialize the number of attempts made by the player
+        int attempts = 0;
+        // Maximum number of attempts allowed for the player
+        int maxAttempts = 10;
+
+        // Create a Scanner object to read input from the user
+        Scanner scanner = new Scanner(System.in);
+
+        // Welcome message and instructions for the game
+        System.out.println("Welcome to the Number Guessing Game!");
+        System.out.println("I have selected a number between 1 and 100. Try to guess it within " + maxAttempts + " attempts.");
+
+        // Loop until the player guesses the correct number or runs out of attempts
+        while (attempts < maxAttempts) {
+            // Prompt the player to enter their guess
+            System.out.print("Enter your guess: ");
+            int guess;
+            // Try to read the integer input from the player
+            try {
+                guess = scanner.nextInt();
+            } catch (Exception e) {
+                // If the input is not an integer, inform the player and skip to the next iteration
+                System.out.println("Please enter a valid number.");
+                // Consume the invalid input to prevent an infinite loop
+                scanner.nextLine();
+                continue;
+            }
+
+            // Increment the number of attempts made by the player
+            attempts++;
+
+            // Provide feedback based on the player's guess
+            if (guess < secretNumber) {
+                System.out.println("Too low! Try again.");
+            } else if (guess > secretNumber) {
+                System.out.println("Too high! Try again.");
+            } else {
+                // If the guess is correct, congratulate the player and exit the method
+                System.out.println("Congratulations! You guessed the number " + secretNumber + " in " + attempts + " attempts.");
+                return;
+            }
+        }
+
+        // If the player runs out of attempts without guessing the correct number, inform them
+        System.out.println("Sorry, you've run out of attempts. The number was " + secretNumber + ".");
+    }
+}
